@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "2525547e-025a-480d-84c4-7a2308d81afb",
+		"name": "FluxUserAPI-GerardoDorado",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"Gerardo\",\n    \"password\":\"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/login",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get ListOfUsers",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ofO1ag6Z5u321ZqPmQ6hfMeY6vFyldEriv9AOkhd",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"\",\n    \"surname\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/AllUsers?beginIndex=0&endIndex=10",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"AllUsers"
+					],
+					"query": [
+						{
+							"key": "beginIndex",
+							"value": "0"
+						},
+						{
+							"key": "endIndex",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get FullUser",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "pLewZF3g0O0E9DB9CC2nbr42Zsvs6fa6QyFTsIfB",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dni\":\"39656540\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/User?dni=39656540",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"User"
+					],
+					"query": [
+						{
+							"key": "dni",
+							"value": "39656540"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create NewUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ofO1ag6Z5u321ZqPmQ6hfMeY6vFyldEriv9AOkhd",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Enzo\",\n    \"surname\":\"Diaz\",\n    \"dni\":\"444444444\",\n    \"birthDate\":\"1993-10-21\",\n    \"location\":\"Azul\",\n    \"phoneNumber\":\"66666666666\",\n    \"email\":\"d@d.d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/User",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "cdiYTkUHviKbruD4sWDkjCwHsHfojOl3GdI7fsep",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Juan\",\n    \"surname\":\"Perez\",\n    \"dni\":\"11111111\",\n    \"birthDate\":\"2012-04-23\",\n    \"location\":\"test\",\n    \"phoneNumber\":\"12312312415\",\n    \"email\":\"a@a.a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseUrl}}/existingUser",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"existingUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "ofO1ag6Z5u321ZqPmQ6hfMeY6vFyldEriv9AOkhd",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseUrl}}/User?dni=444444444",
+					"host": [
+						"{{BaseUrl}}"
+					],
+					"path": [
+						"User"
+					],
+					"query": [
+						{
+							"key": "dni",
+							"value": "444444444"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
