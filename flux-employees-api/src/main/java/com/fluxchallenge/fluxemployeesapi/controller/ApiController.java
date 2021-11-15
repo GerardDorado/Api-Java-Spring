@@ -96,9 +96,15 @@ public class ApiController {
 
     @ResponseBody
     @GetMapping("/AllUsers")
-    ResponseEntity<List<UserBasico>> getListOfUsers(@RequestHeader String authorization, @RequestParam int beginIndex, @RequestParam int endIndex, @RequestBody Map<String,String> filters) {
+    ResponseEntity<List<UserBasico>> getListOfUsers(@RequestHeader String authorization, @RequestParam int beginIndex, @RequestParam int endIndex, @RequestBody(required = false) Map<String,String> filters) {
         if(authorization.equals(token)) {
-            return ResponseEntity.ok(service.getListOfUsers(filters, beginIndex, endIndex));
+            try {
+                List<UserBasico> users = service.getListOfUsers(filters, beginIndex, endIndex);
+                return ResponseEntity.ok().body(users);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return ResponseEntity.badRequest().body(null);
+            }
         } else {
             return (ResponseEntity.badRequest().body(null));
         }

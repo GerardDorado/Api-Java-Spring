@@ -19,6 +19,9 @@ public interface UsersDao extends JpaRepository<User, Long> {
     @Query(value="SELECT new com.fluxchallenge.fluxemployeesapi.dto.UserBasico (name, surname, dni) FROM User u where u.name LIKE %:name% AND u.surname LIKE %:surname%")
     public List<UserBasico> findByNameAndSurnameLike(@Param("name")String name, @Param("surname") String surname, Pageable pageable);
 
+    @Query(value = "SELECT new com.fluxchallenge.fluxemployeesapi.dto.UserBasico (name, surname, dni) FROM User ")
+    public List<UserBasico> findAllBasicUsers(Pageable pageable);
+
     public User findByDni(String dni);
 
 }

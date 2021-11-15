@@ -11,6 +11,6 @@ public interface UserService {
     public void insertUser(User newUser);
     public void deleteUser(String id);
     public User getFullUser(String dni);
-    public List<UserBasico> getListOfUsers(Map<String,String> filter, int beginIndex, int endIndex);
+    public List<UserBasico> getListOfUsers(Map<String,String> filter, int beginIndex, int endIndex) throws Exception;
     public void updateUser(User modifiedUser);
 }

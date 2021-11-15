@@ -33,12 +33,16 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<UserBasico> getListOfUsers(Map<String,String> filter, int beginIndex, int endIndex) {
+    public List<UserBasico> getListOfUsers(Map<String,String> filter, int beginIndex, int endIndex) throws Exception {
         List<UserBasico> result = new ArrayList<>();
-        if(filter.containsKey("dni")) {
+        if(filter == null) {
+            result = dao.findAllBasicUsers(PageRequest.of(beginIndex, endIndex));
+        } else if(filter.containsKey("dni")) {
             result = dao.findByDni(filter.get("dni"), PageRequest.of(beginIndex, endIndex));
         } else if((filter.containsKey("name")) && (filter.containsKey("surname"))) {
             result = dao.findByNameAndSurnameLike(filter.get("name"),filter.get("surname"),PageRequest.of(beginIndex, endIndex));
+        } else {
+            throw new Exception("Bad Filter");
         }
         return result;
     }
