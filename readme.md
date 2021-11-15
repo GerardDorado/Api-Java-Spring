@@ -2,7 +2,7 @@
 
 ### Para usarla descargar el proyecto de spring y utilizar la coleccion de postman que se adjunta al mismo
 
-* Primero se debe hacer un POST al endpoint /login, este nos devolvera un token
+* Primero se debe hacer un POST al endpoint /login, poniendo en el body el usuario y contraseña correcta, los mismos se puede configurar desde el archivo application.poperties, una vez hecho el POST este nos devolvera un token
 * Una vez copiado ese token se podra utilizar las demas funciones de la api pegando el token como header (Authorization)
 
 * * Para Insertar un usuario nuevo se debe hacer un POST al endpoint /User y pasarle en el body como JSON el user que queramos
