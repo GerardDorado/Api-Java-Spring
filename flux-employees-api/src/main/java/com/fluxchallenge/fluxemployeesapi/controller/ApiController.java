@@ -1,9 +1,6 @@
 package com.fluxchallenge.fluxemployeesapi.controller;
 
-/*import com.fluxchallenge.auth.JwtRequest;
-import com.fluxchallenge.auth.JwtResponse;
-import com.fluxchallenge.auth.JwtTokenUtil;
-import com.fluxchallenge.auth.JwtUserDetailsService;*/
+
 import com.fluxchallenge.fluxemployeesapi.dto.LoginForm;
 import com.fluxchallenge.fluxemployeesapi.dto.User;
 import com.fluxchallenge.fluxemployeesapi.dto.UserBasico;
@@ -11,14 +8,6 @@ import com.fluxchallenge.fluxemployeesapi.service.UserServiceImpl;
 
 import com.fluxchallenge.fluxemployeesapi.utils.CredentialManager;
 import org.springframework.beans.factory.annotation.Autowired;
-
-/*import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;*/
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
@@ -28,49 +17,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+
 @RestController
 public class ApiController {
 
-/*
-    Genera error, aun siguiendo esta guideline https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide#authenticationmanager-bean
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
-    private JwtUserDetailsService userDetailsService;
-
-
-
-    @PostMapping("/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
-        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
-
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
-
-        final String token = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new JwtResponse(token));
-    }
-
-    private void authenticate(String username, String password) throws Exception {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
-        } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
-        }
-    }*/
-
-    static String token = ""; //Como no pude implementar el jwt con spring security genero un token en el controller para cumplir la consigna
-
     @Autowired
     UserServiceImpl service;
+
+    @GetMapping("/")
+    String test(){
+        return "Hola, estas autorizado";
+    }
+
+    static String token = "";
+
 
     @Autowired
     CredentialManager credentialManager;
@@ -153,7 +113,7 @@ public class ApiController {
         }
     }
 
-    @PostMapping("/existingUser")
+    @PutMapping("/User")
     ResponseEntity<String> updateUser(@RequestHeader String authorization, @RequestBody User modifiedUser) {
         if(authorization.equals(token)) {
             try{
