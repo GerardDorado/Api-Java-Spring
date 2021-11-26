@@ -5,12 +5,18 @@ import com.fluxchallenge.fluxemployeesapi.dao.RoleDao;
 import com.fluxchallenge.fluxemployeesapi.dto.AppUser;
 import com.fluxchallenge.fluxemployeesapi.dto.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
-public class AppUserServiceImpl implements AppUserService {
+public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Autowired
     private AppUsersDao appUsersDao;
@@ -18,11 +24,15 @@ public class AppUserServiceImpl implements AppUserService {
     @Autowired
     private RoleDao roleDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public AppUser saveUser(AppUser user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return appUsersDao.save(user);
     }
-
     @Override
     public Role saveRole(Role role) {
         return roleDao.save(role);
@@ -50,5 +60,20 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public Role getRole(String name) {
         return roleDao.findByName(name);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        AppUser user = appUsersDao.findByName(userName);
+        if (user == null){
+            throw new UsernameNotFoundException("Usuario no encontrado");
+        }
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        user.getRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+
+        return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), authorities);
     }
 }
